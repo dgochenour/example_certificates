@@ -20,23 +20,23 @@ echo 01 > demoCA/serial && \
 # Generate private key for CA
 $OPENSSL_EXE genrsa -out publisher_private_key.pem 2048 && \
 # Create Certificate request
-$OPENSSL_EXE req -config input/HelloSecurePublisher.cnf -new -key publisher_private_key.pem -out temp.csr && \
+$OPENSSL_EXE req -config input/publisher.cnf -new -key publisher_private_key.pem -out temp.csr && \
 # Sign Certificate request for Domain Participant by CA
-$OPENSSL_EXE ca -days 365 -in temp.csr -out HelloSecurePublisher_cert.pem && \
+$OPENSSL_EXE ca -days 365 -in temp.csr -out publisher_cert.pem && \
 # Create Permissions Grant File for Domain Participant
 # Sign Permissions Document
-$OPENSSL_EXE smime -sign -in input/HelloSecurePublisher_permissions.xml -text -out signed_HelloSecurePublisher_permissions.p7s -signer demoCA/cacert.pem -inkey demoCA/private/cakey.pem && \
+$OPENSSL_EXE smime -sign -in input/publisher_permissions.xml -text -out signed_publisher_permissions.p7s -signer demoCA/cacert.pem -inkey demoCA/private/cakey.pem && \
 #generate private key for CA
 $OPENSSL_EXE genrsa -out subscriber_private_key.pem 2048 && \
 # Create Certificate request
-$OPENSSL_EXE req -config input/HelloSecureSubscriber.cnf -new -key subscriber_private_key.pem -out temp.csr && \
+$OPENSSL_EXE req -config input/subscriber.cnf -new -key subscriber_private_key.pem -out temp.csr && \
 # Sign Certificate request for Domain Participant by CA
-$OPENSSL_EXE ca -days 365 -in temp.csr -out HelloSecureSubscriber_cert.pem && \
+$OPENSSL_EXE ca -days 365 -in temp.csr -out subscriber_cert.pem && \
 # Create Permissions Grant File for Domain Participant
 # Sign Permissions Document
-$OPENSSL_EXE smime -sign -in input/HelloSecureSubscriber_permissions.xml -text -out signed_HelloSecureSubscriber_permissions.p7s -signer demoCA/cacert.pem -inkey demoCA/private/cakey.pem && \
+$OPENSSL_EXE smime -sign -in input/subscriber_permissions.xml -text -out signed_subscriber_permissions.p7s -signer demoCA/cacert.pem -inkey demoCA/private/cakey.pem && \
 # Sign governance file
-$OPENSSL_EXE smime -sign -in input/Governance.xml -out signed_Governance.p7s -text -signer demoCA/cacert.pem -inkey demoCA/private/cakey.pem && \
+$OPENSSL_EXE smime -sign -in input/governance.xml -out signed_governance.p7s -text -signer demoCA/cacert.pem -inkey demoCA/private/cakey.pem && \
 
 if [ $? -eq 0 ]; then
     echo "Done."
