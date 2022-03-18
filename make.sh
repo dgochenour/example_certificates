@@ -45,6 +45,6 @@ else
     exit -1
 fi
 
-cp signed_* output/ && cp *_private_key.pem output/ && cp demoCA/cacert.pem output/
+cp signed_* output/ && cp publisher_* output/ && cp subscriber_* output/ && cp *_private_key.pem output/ && cp demoCA/cacert.pem output/
 
 echo "Done. Check the output folder."
