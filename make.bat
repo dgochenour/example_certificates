@@ -23,7 +23,7 @@ REM Sign Certificate request for Domain Participant by CA
 %OPENSSL_EXE% ca -days 365 -in temp.csr -out publisher_cert.pem
 REM Create Permissions Grant File for Domain Participant
 REM Sign Permissions Document
-%OPENSSL_EXE% smime -sign -in input\publisher_permissions.xml -text -out signed_publisher_permissions.xml -signer demoCA\cacert.pem -inkey demoCA\private\cakey.pem
+%OPENSSL_EXE% smime -sign -in input\publisher_permissions.xml -text -out signed_publisher_permissions.p7s -signer demoCA\cacert.pem -inkey demoCA\private\cakey.pem
 REM generate private key for CA
 %OPENSSL_EXE% genrsa -out subscriber_private_key.pem 2048
 REM Create Certificate request
@@ -32,9 +32,9 @@ REM Sign Certificate request for Domain Participant by CA
 %OPENSSL_EXE% ca -days 365 -in temp.csr -out subscriber_cert.pem
 REM Create Permissions Grant File for Domain Participant
 REM Sign Permissions Document
-%OPENSSL_EXE% smime -sign -in input\subscriber_permissions.xml -text -out signed_subscriber_permissions.xml -signer demoCA\cacert.pem -inkey demoCA\private\cakey.pem
+%OPENSSL_EXE% smime -sign -in input\subscriber_permissions.xml -text -out signed_subscriber_permissions.p7s -signer demoCA\cacert.pem -inkey demoCA\private\cakey.pem
 REM Sign governance file
-%OPENSSL_EXE% smime -sign -in input\governance.xml -text -out signed_governance.xml -signer demoCA\cacert.pem -inkey demoCA\private\cakey.pem
+%OPENSSL_EXE% smime -sign -in input\governance.xml -text -out signed_governance.p7s -signer demoCA\cacert.pem -inkey demoCA\private\cakey.pem
 
 MOVE signed_* output\ & MOVE publisher_* output\ & MOVE subscriber_* output\ & MOVE *_private_key.pem output & COPY demoCA\cacert.pem output\
 
