@@ -39,12 +39,20 @@ $OPENSSL_EXE smime -sign -in input/subscriber_permissions.xml -text -out signed_
 $OPENSSL_EXE smime -sign -in input/governance.xml -out signed_governance.p7s -text -signer demoCA/cacert.pem -inkey demoCA/private/cakey.pem && \
 
 if [ $? -eq 0 ]; then
-    echo "Done."
+    echo "INFO: Artifacts Generated"
 else
     echo "Something went wrong..."
     exit -1
 fi
 
-mv signed_* output/ && mv publisher_* output/ && mv subscriber_* output/ && mv *_private_key.pem output/ && cp demoCA/cacert.pem output/
+mv signed_publisher_permissions.p7s output/ &&  
+mv signed_subscriber_permissions.p7s output/ &&
+mv signed_governance.p7s output/ &&
+mv publisher_cert.pem output/ &&
+mv subscriber_cert.pem output/ &&
+mv publisher_private_key.pem output/ &&
+mv subscriber_private_key.pem output/ &&
+cp demoCA/cacert.pem output/
 
-echo "Done. Check the output folder."
+echo "INFO: Artifacts moved to output dir"
+
